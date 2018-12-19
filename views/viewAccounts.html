@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>All Accounts</title>
+</head>
+<body>
+  <table id="viewUsers">
+  </table>
+
+  <script>
+    var table = document.getElementById("viewUsers");
+    fetch("http://localhost:8080/viewAccounts")
+      .then(resp => resp.json())
+      .then(data => {
+        let theader = document.createElement('tr')
+        Object.keys(data[0]).map((item) => {
+          let td = document.createElement('td')
+          td.innerHTML = item
+          theader.appendChild(td)
+        })
+        table.appendChild(theader)
+        
+        data.map((item) => {
+          let tr = document.createElement('tr')
+          let keys = Object.keys(item)
+          for(let i = 0; i < keys.length; i++){
+            let td = document.createElement('td')
+            td.innerHTML = item[keys[i]]
+            tr.appendChild(td)
+          }
+          table.appendChild(tr)
+        })
+      })
+  </script>
+</body>
+</html>
